@@ -13,14 +13,20 @@ const getAllUser = async (req, res) => {
 const deleteUser = async (req, res) => {
     try {
         const id = req.params.id;
-        await models.User.destroy({
-            where: {
-                id: id
-            }
-        });
+
+        const favorite_id = await models.Favorite.findAll({ where: {user_id:id} })
+
+        for(let i=0; i<favorite_id.length; i++)
+        {
+            await models.FavoritesBooks.destroy({ where: {favorite_id: favorite_id[i].dataValues.id} })
+        }
+
+        await models.Favorite.destroy({ where: {user_id: id} })
+        await models.User.destroy({ where: {id: id} });
 
         res.status(200).send({ status: 200, message: "User berhasil di hapus"})
     } catch (error) {
+        console.log(error)
         res.status(500).send({ status: 500, message: error.message});
     }
 };

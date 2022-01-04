@@ -11,8 +11,8 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
-      this.belongsTo(models.Category, {foreignKey: 'kategori_id', as: 'Category'})
-      this.belongsToMany(models.Favorite, {through: 'FavoritesBooks', foreignKey: 'favorite_id', as: 'Books'})
+      this.belongsTo(models.Category, {foreignKey: 'kategori_id', as: 'Category', onDelete: 'cascade'})
+      this.belongsToMany(models.Favorite, {through: 'FavoritesBooks', foreignKey: 'favorite_id', as: 'Books', onDelete: 'cascade'})
     }
   };
   Book.init({

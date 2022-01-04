@@ -13,7 +13,7 @@ const register = async (req, res) => {
     } catch(err) {
         res.status(422).send({
             status: 422,
-            message: err
+            message: err.message
         })
     }
 }
@@ -55,7 +55,7 @@ const login = async (req, res) => {
         res.status(422).send({
             status: 422,
             message: "Email atau password salah",
-            error: err
+            error: err.message
         })
     }
 }
@@ -80,7 +80,7 @@ const logout = async (req, res) => {
         console.log(err)
         res.status(422).send({
             status: 422,
-            message: err
+            message: err.message
         })
     }
 }
